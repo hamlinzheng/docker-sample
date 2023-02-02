@@ -21,6 +21,7 @@ docker run -it \
     --env="XAUTHORITY=$XAUTH" \
     --volume="$XAUTH:$XAUTH" \
     --runtime=nvidia \
+    --network host \
     --privileged \
     ros-opengl \
     bash
