@@ -26,7 +26,7 @@ services:
       - 80
     volumes:
       - $PWD/wordpress:/var/www/html
-      # - $PWD/php/php.ini:/usr/local/etc/php/php.ini
+      - $PWD/php/php.ini:/usr/local/etc/php/php.ini
     environment:
       - WORDPRESS_DB_HOST=db
       - WORDPRESS_DB_USER=wordpress
