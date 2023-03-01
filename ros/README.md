@@ -1,7 +1,8 @@
 ## Requirement
 
-- docker (≥19.03)
-- nvidia-docker2
+- Docker Engine (\>= 19.03)
+- NVIDIA Driver
+- [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
 
 ## How to run
 
