@@ -1,0 +1,46 @@
+services:
+  db:
+    image: mysql:8.0.27
+    restart: always
+    ports:
+      - 3306:3306
+    # expose:    # do not expose to host
+    #   - 3306
+    #   - 33060
+    command: '--default-authentication-plugin=mysql_native_password'
+    volumes:
+      - $PWD/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=wordpress
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:6.1.1-php8.0-apache
+    restart: always
+    # ports:
+    #   - 8080:80
+    expose:    # do not expose to host
+      - 80
+    volumes:
+      - $PWD/wordpress:/var/www/html
+      # - $PWD/php/php.ini:/usr/local/etc/php/php.ini
+    environment:
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=wordpress
+      - WORDPRESS_DB_NAME=wordpress
+  proxy:
+    image: jc21/nginx-proxy-manager:latest
+    restart: always
+    ports:
+      - 80:80
+      - 8081:81
+      - 443:443
+    volumes:
+      - $PWD/proxy:/data
+      - $PWD/letsencrypt:/etc/letsencrypt
+# volumes:
+#   db_data:
