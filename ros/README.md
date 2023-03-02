@@ -1,8 +1,6 @@
 ## Requirement
 
 - Docker Engine (\>= 19.03)
-- NVIDIA Driver
-- [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
 
 ## How to run
 
@@ -11,7 +9,7 @@
 ### Without GUI
 
 ```shell
-$ docker run -it --rm osrf/ros:melodic-desktop-full /bin/bash
+$ docker run -it --rm --network host osrf/ros:melodic-desktop-full /bin/bash
 $ source ros_entrypoint.sh
 ```
 
@@ -20,11 +18,13 @@ $ source ros_entrypoint.sh
 ### Basic GUI
 
 ```shell
+$ xhost +
 $ docker run -it\
     --rm \
     -e DISPLAY \
     -v /etc/localtime:/etc/localtime:ro \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
+    --network host \
     osrf/ros:melodic-desktop-full \
     /bin/bash
 ```
@@ -34,6 +34,14 @@ $ docker run -it\
 
 
 ### Hardware Acceleration
+
+**Additional Requirement**
+
+- Docker Engine (\>= 19.03)
+- NVIDIA Driver
+- [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
+
+
 
 - http://wiki.ros.org/action/login/docker/Tutorials/Hardware%20Acceleration#nvidia-docker2
 
